@@ -1,6 +1,6 @@
 stack: accounts-dev
 services:
-  api:
+  udi:
     image: registry.gitlab.com/novacloud/udi/accounts
     command: npm start
     environment:
