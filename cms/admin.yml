@@ -8,22 +8,21 @@ entities:
   users:
     name: Uživatelé
     fields:
-      fields:
-        - attribute: username
-          label: Uživ. jméno
-          type: string
-        - attribute: firstname
-          label: Jméno
-          type: string
-        - attribute: lastname
-          label: Příjmení
-          type: string
-        - attribute: role_ids
-          label: Role
-          type: reference
-          toMany: ture
-          entity: roles
-          targetField: name     
+      - attribute: username
+        label: Uživ. jméno
+        type: string
+      - attribute: firstname
+        label: Jméno
+        type: string
+      - attribute: lastname
+        label: Příjmení
+        type: string
+      - attribute: role_ids
+        label: Role
+        type: reference
+        toMany: ture
+        entity: roles
+        targetField: name     
   roles:
     name: Role
     fields:
