@@ -29,7 +29,7 @@ entities:
         label: Uživ. jméno
         type: string
       - attribute: password
-        label: Heslo [sha512]
+        label: Heslo [sha512 hash]
         type: password
       - attribute: firstname
         label: Jméno
