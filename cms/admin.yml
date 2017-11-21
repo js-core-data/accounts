@@ -31,6 +31,9 @@ entities:
       - attribute: password
         label: Heslo [sha512 hash]
         type: string
+      - attribute: email
+        label: Email
+        type: email
       - attribute: firstname
         label: Jméno
         type: string
