@@ -30,7 +30,7 @@ entities:
         type: string
       - attribute: password
         label: Heslo [sha512 hash]
-        type: password
+        type: string
       - attribute: firstname
         label: Jméno
         type: string
