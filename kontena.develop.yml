@@ -5,7 +5,7 @@ services:
     command: npm start
     environment:
       - AUTH_URL=http://core.grid.novacloud.cz/
-      - NEWRELIC_APP_NAME=edemo-dev
+      - NEWRELIC_APP_NAME=accounts-dev
       - KONTENA_LB_VIRTUAL_HOSTS=accounts.dev.novacloud.cz
     links:
       - core/internet_lb
