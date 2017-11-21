@@ -27,7 +27,6 @@ entities:
   roles:
     name: Role
     fields:
-      fields:
-        - attribute: name
-          label: Název
-          type: string
+      - attribute: name
+        label: Název
+        type: string
