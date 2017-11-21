@@ -27,15 +27,12 @@ entities:
     fields:
       - attribute: username
         label: Uživ. jméno
-        type: string
+        type: email
         required: true
       - attribute: password
         label: Heslo [sha512 hash]
         type: string
         required: true
-      - attribute: email
-        label: Email
-        type: email
       - attribute: firstname
         label: Jméno
         type: string
