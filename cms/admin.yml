@@ -7,6 +7,17 @@ oauth:
 entities:
   users:
     name: Uživatelé
+    list:
+      fields:
+        - attribute: username
+          label: Uživ. jméno
+          type: string
+        - attribute: firstname
+          label: Jméno
+          type: string
+        - attribute: lastname
+          label: Příjmení
+          type: string
     fields:
       - attribute: username
         label: Uživ. jméno
@@ -22,10 +33,16 @@ entities:
         type: reference
         toMany: ture
         entity: roles
-        targetField: name     
+        targetField: name 
+      - attribute: permissions
+        label: Oprávnění
+        type: text
   roles:
     name: Role
     fields:
       - attribute: name
         label: Název
         type: string
+      - attribute: permissions
+        label: Oprávnění
+        type: text

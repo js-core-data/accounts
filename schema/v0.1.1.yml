@@ -1,0 +1,28 @@
+User:
+  columns: 
+    uid:
+      type: uuid
+      unique: true
+      default: uuidv4
+    username: 
+      type: string
+      unique: true
+    password: string
+    firstname: string
+    lastname: string
+    permissions: text
+  relationships:
+    roles:
+      entity: Role
+      toMany: true
+      inverse: users
+
+Role:
+  columns:
+    name: string
+    permissions: text
+  relationships:
+    users: 
+      entity: User
+      toMany: true
+      inverse: roles
