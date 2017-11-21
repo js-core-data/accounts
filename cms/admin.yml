@@ -18,7 +18,7 @@ entities:
         - attribute: lastname
           label: Příjmení
           type: string
-        - attribute: role_ids
+        - attribute: roles_id
           label: Role
           type: reference
           toMany: true
@@ -28,13 +28,16 @@ entities:
       - attribute: username
         label: Uživ. jméno
         type: string
+      - attribute: password
+        label: Heslo [sha512]
+        type: password
       - attribute: firstname
         label: Jméno
         type: string
       - attribute: lastname
         label: Příjmení
         type: string
-      - attribute: role_ids
+      - attribute: roles_id
         label: Role
         type: reference
         toMany: true
