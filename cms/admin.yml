@@ -3,7 +3,7 @@ title: Evidence dotací
 url: /api/rest
 oauth:
   flow: resourceOwnerPasswordCredentials
-  authorizeUrl: /api/authorize
+  authorizeUrl: /authorize
 entities:
   users:
     name: Uživatelé
