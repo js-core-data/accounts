@@ -28,9 +28,11 @@ entities:
       - attribute: username
         label: Uživ. jméno
         type: string
+        required: true
       - attribute: password
         label: Heslo [sha512 hash]
         type: string
+        required: true
       - attribute: email
         label: Email
         type: email
@@ -59,6 +61,7 @@ entities:
       - attribute: name
         label: Název
         type: string
+        required: true
       - attribute: permissions
         label: Oprávnění
         type: text
