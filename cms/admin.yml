@@ -1,6 +1,6 @@
 # More configuration examples: https://github.com/jakubknejzlik/admin-as-service/blob/master/example/config.yml
 title: Evidence dotací
-url: /api/rest
+url: /rest
 oauth:
   flow: resourceOwnerPasswordCredentials
   authorizeUrl: /authorize
