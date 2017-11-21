@@ -18,6 +18,12 @@ entities:
         - attribute: lastname
           label: Příjmení
           type: string
+        - attribute: role_ids
+          label: Role
+          type: reference
+          toMany: true
+          entity: roles
+          targetField: name 
     fields:
       - attribute: username
         label: Uživ. jméno
@@ -31,7 +37,7 @@ entities:
       - attribute: role_ids
         label: Role
         type: reference
-        toMany: ture
+        toMany: true
         entity: roles
         targetField: name 
       - attribute: permissions
