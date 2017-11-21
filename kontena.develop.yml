@@ -21,6 +21,6 @@ services:
     environment:
       - CONFIG=$base64($file(cms/admin.yml))
       - KONTENA_LB_VIRTUAL_HOSTS=accounts.dev.novacloud.cz
-      - KONTENA_LB_VIRTUAL_PATH=/cms
+      - KONTENA_LB_VIRTUAL_PATH=/admin
     links:
       - core/internet_lb
