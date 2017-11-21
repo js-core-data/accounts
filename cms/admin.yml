@@ -1,0 +1,33 @@
+# More configuration examples: https://github.com/jakubknejzlik/admin-as-service/blob/master/example/config.yml
+title: Evidence dotací
+url: /api/rest
+oauth:
+  flow: resourceOwnerPasswordCredentials
+  authorizeUrl: /api/authorize
+entities:
+  users:
+    name: Uživatelé
+    fields:
+      fields:
+        - attribute: username
+          label: Uživ. jméno
+          type: string
+        - attribute: firstname
+          label: Jméno
+          type: string
+        - attribute: lastname
+          label: Příjmení
+          type: string
+        - attribute: role_ids
+          label: Role
+          type: reference
+          toMany: ture
+          entity: roles
+          targetField: name     
+  roles:
+    name: Role
+    fields:
+      fields:
+        - attribute: name
+          label: Název
+          type: string

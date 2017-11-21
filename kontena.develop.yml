@@ -1,0 +1,26 @@
+stack: accounts-dev
+services:
+  api:
+    image: registry.gitlab.com/novacloud/udi/accounts
+    command: npm start
+    environment:
+      - AUTH_URL=http://core.grid.novacloud.cz/
+      - NEWRELIC_APP_NAME=edemo-dev
+      - KONTENA_LB_VIRTUAL_HOSTS=accounts.dev.novacloud.cz
+    links:
+      - core/internet_lb
+    secrets:
+      - secret: NEWRELIC_LICENSE_KEY
+        name: NEWRELIC_LICENSE_KEY
+        type: env
+      - secret: DATABASE_URL
+        name: DATABASE_URL
+        type: env
+  admin:
+    image: jakubknejzlik/admin-as-service
+    environment:
+      - CONFIG=$base64($file(cms/admin.yml))
+      - KONTENA_LB_VIRTUAL_HOSTS=accounts.dev.novacloud.cz
+      - KONTENA_LB_VIRTUAL_PATH=/cms
+    links:
+      - core/internet_lb

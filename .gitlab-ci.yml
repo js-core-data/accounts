@@ -1,0 +1,112 @@
+image: registry.gitlab.com/novacloud/udi/udi-cli
+
+stages:
+  - test
+  - build
+  - backup
+  - deploy-stack
+  - deploy-database
+  - validate
+  - restore
+  - actions
+
+# Test stage
+test:
+  stage: test
+  tags:
+    - docker
+  services:
+    - docker:dind
+  script:
+    - udi test
+
+# Build stage
+build:
+  stage: build
+  tags:
+    - docker
+  services:
+    - docker:dind
+  script:
+    - udi build
+  only:
+    - develop
+    - master
+
+# Backup stage
+backup-database:
+  tags:
+    - docker
+  stage: backup
+  only:
+    - develop
+    - master
+  script:
+    - udi database backup
+
+# Deploy stage
+deploy-stack:
+  tags:
+    - docker
+  stage: deploy-stack
+  only:
+    - develop
+    - master
+  script:
+    - udi stack deploy
+
+deploy-database:
+  tags:
+    - docker
+  stage: deploy-database
+  only:
+    - develop
+    - master
+  script:
+    - udi database deploy
+
+# Validate stage
+validate:
+  tags:
+    - docker
+  stage: validate
+  only:
+    - develop
+    - master
+  script:
+    - udi validate
+
+# Restore stage
+restore-stack:
+  tags:
+    - docker
+  stage: restore
+  only:
+    - develop
+    - master
+  when: on_failure
+  script:
+    - udi stack restore
+
+restore-database:
+  tags:
+    - docker
+  stage: restore
+  only:
+    - develop
+    - master
+  when: on_failure
+  script:
+    - udi database restore
+
+# Actions stage
+seed:
+  tags:
+    - docker
+  stage: actions
+  when: manual
+  only:
+    - develop
+    - master
+  script:
+    - udi seed default
