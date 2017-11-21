@@ -39,6 +39,10 @@ entities:
         type: text
   roles:
     name: Role
+    list:
+      fields:
+        - attribute: name
+          label: Název
     fields:
       - attribute: name
         label: Název
