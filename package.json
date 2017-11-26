@@ -5,7 +5,8 @@
     "jsonwebtoken": "^8.1.0"
   },
   "scripts": {
-    "start": "PORT=8080 js-core-data-app start"
+    "start": "PORT=8080 js-core-data-app start",
+    "deploy-database": "js-core-data-app migrate"
   },
   "devDependencies": {
     "js-core-data-app": "0.0.30"
