@@ -62,3 +62,28 @@ entities:
       - attribute: permissions
         label: Oprávnění
         type: text
+  clients:
+    name: OAuth clients
+    list:
+      fields:
+        - attribute: name
+          label: Name
+        - attribute: uid
+          label: Client ID
+        - attribute: grants
+          label: OAuth grant types
+          type: string
+    fields:
+      - attribute: name
+        label: Name
+        type: string
+        required: true
+      - attribute: grants
+        label: OAuth grant types
+        type: string
+      - attribute: uid
+        label: Client ID
+        type: string
+      - attribute: secret
+        label: Secret
+        type: string
