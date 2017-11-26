@@ -1,0 +1,13 @@
+{
+  "dependencies": {
+    "express-oauth-server": "^2.0.0",
+    "js-sha512": "^0.7.0",
+    "jsonwebtoken": "^8.1.0"
+  },
+  "scripts": {
+    "start": "PORT=8080 js-core-data-app start"
+  },
+  "devDependencies": {
+    "js-core-data-app": "0.0.30"
+  }
+}
