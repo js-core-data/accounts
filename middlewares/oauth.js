@@ -7,7 +7,8 @@ const sha512 = require("js-sha512");
 module.exports = database => {
   const model = {
     generateAccessToken: async (client, user, scope) => {
-      let payload = { user: user };
+      const iat = Math.floor(Date.now() / 1000);
+      let payload = { user, scope, iat: iat };
       console.log("generateAccessToken", client, user, scope);
       console.log(payload);
       token = jwt.sign(
