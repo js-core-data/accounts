@@ -1,9 +1,13 @@
 {
   "dependencies": {
     "express-oauth-server": "^2.0.0",
+    "http-errors": "^1.6.2",
     "js-sha512": "^0.7.0",
-    "jscda-graphql-api": "0.0.5",
-    "jscda-rest-api": "0.0.5",
+    "js-yaml": "^3.10.0",
+    "jscda-graphql-api": "0.0.6",
+    "jscda-jwt": "0.0.6",
+    "jscda-newrelic": "0.0.4",
+    "jscda-rest-api": "0.0.6",
     "jsonwebtoken": "^8.1.0"
   },
   "scripts": {
@@ -11,6 +15,6 @@
     "deploy-database": "js-core-data-app migrate"
   },
   "devDependencies": {
-    "js-core-data-app": "^0.1.4"
+    "js-core-data-app": "^0.2.6"
   }
 }

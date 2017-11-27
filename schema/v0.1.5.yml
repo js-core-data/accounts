@@ -11,6 +11,7 @@ User:
     firstname: string
     lastname: string
     permissions: text
+    info: text
   relationships:
     roles:
       entity: Role

@@ -3,28 +3,27 @@ const OAuthServer = require("express-oauth-server");
 const bodyParser = require("body-parser");
 const jwt = require("jsonwebtoken");
 const sha512 = require("js-sha512");
+const yaml = require("js-yaml");
 
-module.exports = database => {
+module.exports = app => {
+  const database = app.locals.database;
   const model = {
     generateAccessToken: async (client, user, scope) => {
       const iat = Math.floor(Date.now() / 1000);
       let payload = { user, scope, iat: iat };
       console.log("generateAccessToken", client, user, scope);
       console.log(payload);
-      token = jwt.sign(
-        payload,
-        process.env.JWT_SECRET || "this_should_be_secret"
-      );
+      token = jwt.sign(payload, process.env.JWT_SECRET || "JWT_SECRET");
       console.log("jwt:", token);
       return token;
     },
     getClient: async (clientId, clientSecret) => {
+      console.log("get client", clientId, clientSecret);
       const context = database.createContext();
       let client = await context.getObject("Client", {
         uid: clientId,
         secret: clientSecret
       });
-      context.destroy();
 
       if (!client) {
         return { id: clientId, grants: ["password"] };
@@ -33,9 +32,12 @@ module.exports = database => {
       let values = client.getValues();
       values.grants = values.grants.split(",");
 
+      context.destroy();
+
       return values;
     },
     getUser: async (username, password) => {
+      console.log("get user", username);
       const context = database.createContext();
       let user = await context.getObject("User", {
         where: {
@@ -54,15 +56,22 @@ module.exports = database => {
 
       context.destroy();
 
+      let metadata = null;
+      try {
+        metadata = yaml.safeLoad(user.metadata);
+      } catch (e) {}
+
       return {
         uid: user.uid,
         username: user.username,
         firstname: user.firstname,
         lastname: user.lastname,
-        permissions: permissions.join("\n")
+        permissions: permissions.join("\n"),
+        metadata: metadata
       };
     },
     saveToken: async (token, client, user) => {
+      console.log("save token", token, client, user);
       const context = database.createContext();
 
       token.accessTokenExpiresAt = new Date(Date.now() + 1000 * 3600 * 24 * 90);
@@ -94,8 +103,6 @@ module.exports = database => {
     model
   });
 
-  const app = new Router();
-
   app.use(bodyParser.urlencoded({ extended: false }));
 
   app.post("/auth", oauth.authorize());
@@ -104,6 +111,4 @@ module.exports = database => {
   // app.use(oauth.authenticate(), (req, res, next) => {
   //   console.log(res.locals.oauth);
   // });
-
-  return app;
 };

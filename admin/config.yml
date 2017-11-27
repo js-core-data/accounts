@@ -1,9 +1,12 @@
 # More configuration examples: https://github.com/jakubknejzlik/admin-as-service/blob/master/example/config.yml
-title: Evidence dotací
+title: Administrace přístupů
 url: ..
 oauth:
   flow: resourceOwnerPasswordCredentials
-  authorizeUrl: /auth/token
+  authorizeUrl: https://accounts.novacloud.cz/auth/token
+  clientId: default_client
+  clientSecret: 123456
+  scope: accounts
 entities:
   users:
     name: Uživatelé
@@ -47,6 +50,9 @@ entities:
         targetField: name 
       - attribute: permissions
         label: Oprávnění
+        type: text
+      - attribute: metadata
+        label: Metadata (YAML)
         type: text
   roles:
     name: Role
