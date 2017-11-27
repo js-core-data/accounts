@@ -1,4 +1,4 @@
-FROM jakubknejzlik/js-core-data-app
+FROM jscoredata/app
 
 COPY . /code
 
