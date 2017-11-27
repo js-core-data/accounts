@@ -10,6 +10,6 @@
     "deploy-database": "js-core-data-app migrate"
   },
   "devDependencies": {
-    "js-core-data-app": "^0.1.1"
+    "js-core-data-app": "^0.1.2"
   }
 }
