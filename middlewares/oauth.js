@@ -15,6 +15,7 @@ module.exports = database => {
         payload,
         process.env.JWT_SECRET || "this_should_be_secret"
       );
+      console.log("jwt:", token);
       return token;
     },
     getClient: async (clientId, clientSecret) => {
@@ -37,8 +38,10 @@ module.exports = database => {
     getUser: async (username, password) => {
       const context = database.createContext();
       let user = await context.getObject("User", {
-        username: username,
-        password: sha512(password)
+        where: {
+          username: username,
+          password: sha512(password)
+        }
       });
 
       if (!user) return null;
