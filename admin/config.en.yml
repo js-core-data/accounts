@@ -1,25 +1,25 @@
 # More configuration examples: https://github.com/jakubknejzlik/admin-as-service/blob/master/example/config.yml
-title: Administrace přístupů
+title: Accounts administration
 url: ..
 oauth:
   flow: resourceOwnerPasswordCredentials
-  authorizeUrl: https://accounts.novacloud.cz/auth/token
+  authorizeUrl: ${API_URL}/auth/token
   clientId: default_client
   clientSecret: 123456
   scope: accounts
 entities:
   users:
-    name: Uživatelé
+    name: Users
     list:
       fields:
         - attribute: username
-          label: Uživ. jméno
+          label: Username
           type: string
         - attribute: firstname
-          label: Jméno
+          label: Firtname
           type: string
         - attribute: lastname
-          label: Příjmení
+          label: Lastname
           type: string
         - attribute: roles_id
           label: Role
@@ -29,18 +29,18 @@ entities:
           targetField: name 
     fields:
       - attribute: username
-        label: Uživ. jméno
+        label: Username
         type: email
         required: true
       - attribute: password
-        label: Heslo [sha512 hash]
+        label: Password [sha512 hash]
         type: string
         required: true
       - attribute: firstname
-        label: Jméno
+        label: Firstname
         type: string
       - attribute: lastname
-        label: Příjmení
+        label: Lastname
         type: string
       - attribute: roles_id
         label: Role
@@ -49,7 +49,7 @@ entities:
         entity: roles
         targetField: name 
       - attribute: permissions
-        label: Oprávnění
+        label: Permissions
         type: text
       - attribute: metadata
         label: Metadata (YAML)
@@ -59,14 +59,14 @@ entities:
     list:
       fields:
         - attribute: name
-          label: Název
+          label: Name
     fields:
       - attribute: name
-        label: Název
+        label: Name
         type: string
         required: true
       - attribute: permissions
-        label: Oprávnění
+        label: Permissions
         type: text
   clients:
     name: OAuth clients

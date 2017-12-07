@@ -1,0 +1,95 @@
+# More configuration examples: https://github.com/jakubknejzlik/admin-as-service/blob/master/example/config.yml
+title: Administrace přístupů
+url: ..
+oauth:
+  flow: resourceOwnerPasswordCredentials
+  authorizeUrl: ${API_URL}/auth/token
+  clientId: default_client
+  clientSecret: 123456
+  scope: accounts
+entities:
+  users:
+    name: Uživatelé
+    list:
+      fields:
+        - attribute: username
+          label: Uživ. jméno
+          type: string
+        - attribute: firstname
+          label: Jméno
+          type: string
+        - attribute: lastname
+          label: Příjmení
+          type: string
+        - attribute: roles_id
+          label: Role
+          type: reference
+          toMany: true
+          entity: roles
+          targetField: name 
+    fields:
+      - attribute: username
+        label: Uživ. jméno
+        type: email
+        required: true
+      - attribute: password
+        label: Heslo [sha512 hash]
+        type: string
+        required: true
+      - attribute: firstname
+        label: Jméno
+        type: string
+      - attribute: lastname
+        label: Příjmení
+        type: string
+      - attribute: roles_id
+        label: Role
+        type: reference
+        toMany: true
+        entity: roles
+        targetField: name 
+      - attribute: permissions
+        label: Oprávnění
+        type: text
+      - attribute: metadata
+        label: Metadata (YAML)
+        type: text
+  roles:
+    name: Role
+    list:
+      fields:
+        - attribute: name
+          label: Název
+    fields:
+      - attribute: name
+        label: Název
+        type: string
+        required: true
+      - attribute: permissions
+        label: Oprávnění
+        type: text
+  clients:
+    name: OAuth clients
+    list:
+      fields:
+        - attribute: name
+          label: Name
+        - attribute: uid
+          label: Client ID
+        - attribute: grants
+          label: OAuth grant types
+          type: string
+    fields:
+      - attribute: name
+        label: Name
+        type: string
+        required: true
+      - attribute: grants
+        label: OAuth grant types
+        type: string
+      - attribute: uid
+        label: Client ID
+        type: string
+      - attribute: secret
+        label: Secret
+        type: string
