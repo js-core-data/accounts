@@ -3,7 +3,7 @@ title: Accounts administration
 url: ..
 oauth:
   flow: resourceOwnerPasswordCredentials
-  authorizeUrl: ${API_URL}/auth/token
+  authorizeUrl: ${AUTH_URL}/auth/token
   clientId: default_client
   clientSecret: 123456
   scope: accounts
