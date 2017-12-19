@@ -4,17 +4,16 @@
     "http-errors": "^1.6.2",
     "js-sha512": "^0.7.0",
     "js-yaml": "^3.10.0",
-    "jscda-graphql-api": "0.0.6",
-    "jscda-jwt": "0.0.6",
-    "jscda-newrelic": "0.0.4",
-    "jscda-rest-api": "0.0.6",
+    "nappjs-graphql-api": "0.1.0",
+    "nappjs-jwt": "0.1.0",
+    "nappjs-rest-api": "0.1.0",
     "jsonwebtoken": "^8.1.0"
   },
   "scripts": {
-    "start": "js-core-data-app start",
-    "deploy-database": "js-core-data-app migrate"
+    "start": "nappjs start",
+    "deploy-database": "nappjs migrate"
   },
   "devDependencies": {
-    "js-core-data-app": "^0.2.6"
+    "nappjs": "^0.3.0"
   }
 }
