@@ -1,4 +1,4 @@
-FROM jscoredata/app
+FROM nappjs/app
 
 COPY . /code
 
