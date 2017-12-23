@@ -4,10 +4,10 @@
     "http-errors": "^1.6.2",
     "js-sha512": "^0.7.0",
     "js-yaml": "^3.10.0",
-    "nappjs-graphql-api": "0.1.0",
+    "jsonwebtoken": "^8.1.0",
+    "nappjs-graphql-api": "^0.1.2",
     "nappjs-jwt": "0.1.0",
-    "nappjs-rest-api": "0.1.0",
-    "jsonwebtoken": "^8.1.0"
+    "nappjs-rest-api": "0.1.0"
   },
   "scripts": {
     "start": "nappjs start",
