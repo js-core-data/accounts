@@ -30,7 +30,9 @@ module.exports = app => {
       }
 
       let values = client.getValues();
-      values.grants = values.grants.split(",");
+      if (typeof values.grants === "string") {
+        values.grants = values.grants.split(",");
+      }
 
       context.destroy();
 
