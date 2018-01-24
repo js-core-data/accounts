@@ -1,4 +1,4 @@
-FROM nappjs/app
+FROM nappjs/nappjs
 
 COPY . /code
 
