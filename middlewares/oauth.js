@@ -18,7 +18,7 @@ class OAuth extends NappJSService {
         let payload = { user, scope, iat: iat };
         console.log("generateAccessToken", client, user, scope);
         console.log(payload);
-        token = jwt.sign(payload, process.env.JWT_SECRET || "JWT_SECRET");
+        let token = jwt.sign(payload, process.env.JWT_SECRET || "JWT_SECRET");
         console.log("jwt:", token);
         return token;
       },
