@@ -1,25 +1,27 @@
 # More configuration examples: https://github.com/jakubknejzlik/admin-as-service/blob/master/example/config.yml
-title: Administrace přístupů
+title: Administrace uživatelů
+basePath: '/admin/'
 url: ..
-oauth:
-  flow: resourceOwnerPasswordCredentials
+auth:
+  grantType: password
   authorizeUrl: ${AUTH_URL}/auth/token
   clientId: default_client
   clientSecret: 123456
   scope: accounts
 entities:
   users:
-    name: Uživatelé
+    name: Users
     list:
       fields:
         - attribute: username
-          label: Uživ. jméno
+          label: Username
           type: string
+          main: true
         - attribute: firstname
-          label: Jméno
+          label: Firtname
           type: string
         - attribute: lastname
-          label: Příjmení
+          label: Lastname
           type: string
         - attribute: roles_id
           label: Role
@@ -27,46 +29,53 @@ entities:
           toMany: true
           entity: roles
           targetField: name 
-    fields:
-      - attribute: username
-        label: Uživ. jméno
-        type: email
-        required: true
-      - attribute: password
-        label: Heslo [sha512 hash]
-        type: string
-        required: true
-      - attribute: firstname
-        label: Jméno
-        type: string
-      - attribute: lastname
-        label: Příjmení
-        type: string
-      - attribute: roles_id
-        label: Role
-        type: reference
-        toMany: true
-        entity: roles
-        targetField: name 
-      - attribute: permissions
-        label: Oprávnění
-        type: text
-      - attribute: metadata
-        label: Metadata (YAML)
-        type: text
+    fieldsets:
+      - title: Basic info
+        fields:
+        - attribute: username
+          label: Username
+          type: email
+          required: true
+        - attribute: password
+          label: Password [sha512 hash]
+          type: string
+          required: true
+        - attribute: firstname
+          label: Firstname
+          type: string
+        - attribute: lastname
+          label: Lastname
+          type: string
+      - title: Access control
+        fields:
+        - attribute: roles_id
+          label: Role
+          type: reference
+          toMany: true
+          entity: roles
+          targetField: name 
+        - attribute: permissions
+          label: Permissions
+          type: text
+      - title: Additional informations
+        fields:
+        - attribute: metadata
+          label: Metadata (YAML)
+          type: text
   roles:
     name: Role
     list:
       fields:
         - attribute: name
-          label: Název
+          label: Name
+          main: true
     fields:
       - attribute: name
-        label: Název
+        label: Name
         type: string
         required: true
       - attribute: permissions
-        label: Oprávnění
+        label: Permissions
         type: text
   clients:
     name: OAuth clients
@@ -74,8 +83,10 @@ entities:
       fields:
         - attribute: name
           label: Name
+          main: true
         - attribute: uid
           label: Client ID
+          main: true
         - attribute: grants
           label: OAuth grant types
           type: string

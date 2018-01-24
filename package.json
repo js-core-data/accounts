@@ -4,16 +4,14 @@
     "http-errors": "^1.6.2",
     "js-sha512": "^0.7.0",
     "js-yaml": "^3.10.0",
-    "nappjs-graphql-api": "0.1.0",
-    "nappjs-jwt": "0.1.0",
-    "nappjs-rest-api": "0.1.0",
-    "jsonwebtoken": "^8.1.0"
+    "jsonwebtoken": "^8.1.0",
+    "nappjs-graphql-api": "^0.2.1",
+    "nappjs-jwt": "^0.2.2",
+    "nappjs-rest-api": "^0.1.5",
+    "nappjs": "^0.5.4"
   },
   "scripts": {
     "start": "nappjs start",
     "deploy-database": "nappjs migrate"
-  },
-  "devDependencies": {
-    "nappjs": "^0.3.0"
   }
 }
