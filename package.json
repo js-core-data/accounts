@@ -5,10 +5,10 @@
     "js-sha512": "^0.7.0",
     "js-yaml": "^3.10.0",
     "jsonwebtoken": "^8.1.0",
-    "nappjs-graphql-api": "^0.2.1",
+    "nappjs": "^0.5.4",
+    "nappjs-graphql-api": "^0.2.2",
     "nappjs-jwt": "^0.2.2",
-    "nappjs-rest-api": "^0.1.5",
-    "nappjs": "^0.5.4"
+    "nappjs-rest-api": "^0.1.5"
   },
   "scripts": {
     "start": "nappjs start",
