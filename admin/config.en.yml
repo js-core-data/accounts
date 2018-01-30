@@ -1,12 +1,14 @@
-# More configuration examples: https://github.com/jakubknejzlik/admin-as-service/blob/master/example/config.yml
-title: Accounts administration
-basePath: '/admin/'
-url: ..
+title: admin-as-service example
+url: 'https://accounts.profiwh.com/graphql'
+apiType: graphql
+basePath: /
+messages:
+  dashboard: Hello world!
 auth:
-  grantType: password
-  authorizeUrl: ${AUTH_URL}/auth/token
-  clientId: default_client
-  clientSecret: 123456
+  grantType: password #use password for username/password credentials
+  authorizeUrl: https://accounts.novacloud.cz/oauth/token
+  clientId: client_id
+  clientSecret: client_secret
   scope: accounts
 entities:
   users:
@@ -29,6 +31,19 @@ entities:
           toMany: true
           entity: roles
           targetField: name 
+      filters:
+        fields:
+          - attribute: q
+            label: Search
+            attributes:
+              placeholder: search text
+              searchColumns: title
+          - attribute: roles_id
+            label: Roles
+            type: reference
+            toMany: true
+            entity: roles
+            targetField: name
     fieldsets:
       - title: Basic info
         fields:
