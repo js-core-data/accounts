@@ -1,10 +1,11 @@
 # More configuration examples: https://github.com/jakubknejzlik/admin-as-service/blob/master/example/config.yml
 title: Accounts administration
-basePath: '/admin/'
-url: ..
+basePath: '/'
+url: https://accounts.profiwh.com/graphql
+apiType: graphql
 auth:
   grantType: password
-  authorizeUrl: ${AUTH_URL}/auth/token
+  authorizeUrl: https://accounts.profiwh.com/auth/token
   clientId: default_client
   clientSecret: 123456
   scope: accounts
@@ -28,7 +29,17 @@ entities:
           type: reference
           toMany: true
           entity: roles
-          targetField: name 
+          targetField: name
+      filters:
+        fields:
+          - attribute: q
+            label: Search
+          - attribute: roles_id
+            label: Roles
+            type: reference
+            toMany: true
+            entity: roles
+            targetField: name
     fieldsets:
       - title: Basic info
         fields:
