@@ -1,17 +1,24 @@
 {
   "dependencies": {
+    "cron": "^1.3.0",
     "express-oauth-server": "^2.0.0",
     "http-errors": "^1.6.2",
     "js-sha512": "^0.7.0",
     "js-yaml": "^3.10.0",
     "jsonwebtoken": "^8.1.0",
+    "moment": "^2.20.1",
     "nappjs": "^0.5.4",
-    "nappjs-graphql-api": "^0.2.7",
+    "nappjs-graphql-api": "^0.2.8",
     "nappjs-jwt": "^0.2.2",
-    "nappjs-rest-api": "^0.1.5"
+    "nappjs-rest-api": "^0.1.5",
+    "selfsigned": "^1.10.2"
   },
   "scripts": {
     "start": "nappjs start",
-    "deploy-database": "nappjs migrate"
+    "deploy-database": "nappjs migrate",
+    "test": "mocha test"
+  },
+  "devDependencies": {
+    "mocha": "^5.0.0"
   }
 }

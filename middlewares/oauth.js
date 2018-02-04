@@ -1,11 +1,12 @@
 const Router = require("express").Router;
 const OAuthServer = require("express-oauth-server");
 const bodyParser = require("body-parser");
-const jwt = require("jsonwebtoken");
 const sha512 = require("js-sha512");
 const yaml = require("js-yaml");
 
 const NappJSService = require("nappjs").NappJSService;
+
+const jwt = require("../lib/jwt");
 
 class OAuth extends NappJSService {
   async load(napp) {
@@ -16,11 +17,8 @@ class OAuth extends NappJSService {
       generateAccessToken: async (client, user, scope) => {
         const iat = Math.floor(Date.now() / 1000);
         let payload = { user, scope, iat: iat };
-        console.log("generateAccessToken", client, user, scope);
-        console.log(payload);
-        let token = jwt.sign(payload, process.env.JWT_SECRET || "JWT_SECRET");
-        console.log("jwt:", token);
-        return token;
+        let secret = await jwt.getTokenSecret(database);
+        return jwt.generateAccessToken(payload, secret, { algorithm: "RS256" });
       },
       getClient: async (clientId, clientSecret) => {
         console.log("get client", clientId, clientSecret);
