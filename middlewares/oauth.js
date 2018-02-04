@@ -17,8 +17,8 @@ class OAuth extends NappJSService {
       generateAccessToken: async (client, user, scope) => {
         const iat = Math.floor(Date.now() / 1000);
         let payload = { user, scope, iat: iat };
-        let secret = await jwt.getTokenSecret(database);
-        return jwt.generateAccessToken(payload, secret, { algorithm: "RS256" });
+        let config = await jwt.getTokenConfiguration(database);
+        return jwt.generateAccessToken(payload, config);
       },
       getClient: async (clientId, clientSecret) => {
         console.log("get client", clientId, clientSecret);
