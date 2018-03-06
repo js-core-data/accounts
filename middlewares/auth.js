@@ -15,10 +15,15 @@ class Auth extends NappJSService {
         return next();
       }
       try {
-        let token = await jwt.getToken(req);
-        let scopes = (token.scope || "").split(" ");
-        if (scopes.indexOf("accounts") === -1) {
-          throw createError(401, `token missing require scope 'accounts'`);
+        let enabled = await jwt.isEnabled(req);
+        if (enabled) {
+          let token = await jwt.getToken(req);
+          let scopes = (token.scope || "").split(" ");
+          if (scopes.indexOf("accounts") === -1) {
+            throw createError(401, `token missing require scope 'accounts'`);
+          }
+        } else {
+          console.log("JWT configuration is not provided");
         }
         next();
       } catch (e) {
