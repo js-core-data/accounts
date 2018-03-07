@@ -1,0 +1,11 @@
+type UserInvitation {
+  uid: String!
+}
+
+type Query {
+  invitationsAvailable: Boolean!
+}
+
+type Mutation {
+  inviteUser(email: String!): UserInvitation
+}
