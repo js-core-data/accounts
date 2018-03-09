@@ -1,8 +1,6 @@
 const cron = require("cron");
 const NappJSService = require("nappjs").NappJSService;
 
-const certificates = require("../lib/certificates");
-
 class Signing extends NappJSService {
   async load(napp) {
     this.cron = new cron.CronJob("0 0 * * * *", async () => {
@@ -31,20 +29,7 @@ class Signing extends NappJSService {
   }
 
   async updateCertificates(napp) {
-    const database = napp.getService("nappjs-core-data").database;
-    const context = database.createContext();
-
-    let certCount = await context.getObjectsCount("Certificate");
-    if (certCount == 0) {
-      await this.createCertificate(context);
-    }
-
-    return context.saveAndDestroy();
-  }
-
-  async createCertificate(context) {
-    let pems = await certificates.genereateNewCertificate();
-    context.create("Certificate", pems);
+    return napp.runScript("check-certificates");
   }
 }
 

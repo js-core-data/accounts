@@ -22,11 +22,13 @@ class OAuth extends NappJSService {
         return jwt.generateAccessToken(payload, config);
       },
       getClient: async (clientId, clientSecret) => {
-        console.log("get client", clientId, clientSecret);
+        // console.log("get client", clientId, clientSecret);
         const context = database.createContext();
         let client = await context.getObject("Client", {
-          uid: clientId,
-          secret: clientSecret
+          where: {
+            uid: clientId,
+            secret: clientSecret
+          }
         });
 
         if (!client) {
@@ -43,7 +45,7 @@ class OAuth extends NappJSService {
         return values;
       },
       getUser: async (username, password) => {
-        console.log("get user", username);
+        // console.log("get user", username);
         const context = database.createContext();
         let user = await context.getObject("User", {
           where: {
@@ -77,7 +79,7 @@ class OAuth extends NappJSService {
         };
       },
       saveToken: async (token, client, user) => {
-        console.log("save token", token, client, user);
+        // console.log("save token", token, client, user);
         const context = database.createContext();
 
         token.accessTokenExpiresAt = new Date(
@@ -104,6 +106,18 @@ class OAuth extends NappJSService {
         await context.saveAndDestroy();
 
         return token;
+      },
+      getUserFromClient: async client => {
+        const context = database.createContext();
+
+        let user = await context.getObject("User", {
+          where: { "SELF.clients.id": client.id }
+        });
+
+        let values = user.getValues();
+        await context.destroy();
+
+        return values;
       }
     };
 

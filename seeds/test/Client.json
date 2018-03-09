@@ -1,0 +1,9 @@
+[
+  {
+    "name": "test client",
+    "uid": "test",
+    "secret": "secret",
+    "grants": "client_credentials",
+    "user": "1"
+  }
+]

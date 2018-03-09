@@ -2,7 +2,7 @@ const assert = require("assert");
 const supertest = require("supertest");
 const NewNappJS = require("nappjs").NewNappJS;
 
-describe.only("users", () => {
+describe("users", () => {
   const nappjs = NewNappJS({});
   let test = null;
 

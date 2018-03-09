@@ -1,0 +1,70 @@
+User:
+  columns: 
+    uid:
+      type: uuid
+      unique: true
+      default: uuidv4
+    username: 
+      type: string
+      unique: true
+    password: string
+    firstname: string
+    lastname: string
+    permissions: text
+    metadata: text
+  relationships:
+    roles:
+      entity: Role
+      toMany: true
+      inverse: users
+    clients:
+      entity: Client
+      toMany: true
+      inverse: user
+
+Role:
+  columns:
+    name: string
+    permissions: text
+    default: boolean
+  relationships:
+    users: 
+      entity: User
+      toMany: true
+      inverse: roles
+
+Client:
+  columns:
+    uid: 
+      type: uuid
+      unique: true
+      default: uuidv4
+    secret: 
+      type: uuid
+      default: uuidv4
+    name: string
+    grants: string
+  relationships:
+    user:
+      entity: User
+      inverse: clients
+
+Token:
+  columns:
+    type:
+      type: enum
+      values:
+        - access
+        - refresh
+    token: 
+      type: string
+      length: 2048
+    expireAt: date
+    scope: string
+
+Certificate:
+  columns:
+    private: text
+    public: text
+    cert: text
+    expireAt: date
