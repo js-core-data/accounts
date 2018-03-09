@@ -80,11 +80,18 @@ entities:
         - attribute: name
           label: Name
           main: true
+        - attribute: default
+          label: Default
+          type: boolean
     fields:
       - attribute: name
         label: Name
         type: string
         required: true
+      - attribute: default
+        label: Permissions
+        helpText: Default roles are assigned to newly created users automatically
+        type: boolean
       - attribute: permissions
         label: Permissions
         type: text

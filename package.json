@@ -13,7 +13,8 @@
     "nappjs-graphql-api": "^0.3.7",
     "nappjs-jwt": "^0.3.5",
     "nappjs-rest-api": "^0.1.5",
-    "selfsigned": "^1.10.2"
+    "selfsigned": "^1.10.2",
+    "supertest": "^3.0.0"
   },
   "scripts": {
     "start": "nappjs start",
