@@ -1,17 +1,21 @@
-const Router = require("express").Router;
-const OAuthServer = require("express-oauth-server");
-const bodyParser = require("body-parser");
-const sha512 = require("js-sha512");
-const yaml = require("js-yaml");
+const Router = require('express').Router;
+const OAuthServer = require('express-oauth-server');
+const bodyParser = require('body-parser');
+const sha512 = require('js-sha512');
+const yaml = require('js-yaml');
 
-const NappJSService = require("nappjs").NappJSService;
+const NappJSService = require('nappjs').NappJSService;
 
-const jwt = require("../lib/jwt");
+const jwt = require('../lib/jwt');
+const {
+  canFetchUserFromParent,
+  fetchUserFromParent
+} = require('../lib/parent');
 
 class OAuth extends NappJSService {
   async load(napp) {
-    const database = napp.getService("nappjs-core-data").database;
-    const app = napp.getService("nappjs-api").app;
+    const database = napp.getService('nappjs-core-data').database;
+    const app = napp.getService('nappjs-api').app;
 
     const model = {
       generateAccessToken: async (client, user, scope) => {
@@ -24,7 +28,7 @@ class OAuth extends NappJSService {
       getClient: async (clientId, clientSecret) => {
         // console.log("get client", clientId, clientSecret);
         const context = database.createContext();
-        let client = await context.getObject("Client", {
+        let client = await context.getObject('Client', {
           where: {
             uid: clientId,
             secret: clientSecret
@@ -32,12 +36,12 @@ class OAuth extends NappJSService {
         });
 
         if (!client) {
-          return { id: clientId, grants: ["password"] };
+          return { id: clientId, grants: ['password'] };
         }
 
         let values = client.getValues();
-        if (typeof values.grants === "string") {
-          values.grants = values.grants.split(",");
+        if (typeof values.grants === 'string') {
+          values.grants = values.grants.split(',');
         }
 
         context.destroy();
@@ -47,16 +51,21 @@ class OAuth extends NappJSService {
       getUser: async (username, password) => {
         // console.log("get user", username);
         const context = database.createContext();
-        let user = await context.getObject("User", {
+        let user = await context.getObject('User', {
           where: {
             username: username,
             password: sha512(password)
           }
         });
 
+        if (!user && canFetchUserFromParent()) {
+          const userData = await fetchUserFromParent(username, password);
+          return userData;
+        }
+
         if (!user) return null;
 
-        let permissions = (user.permissions || "").split("\n");
+        let permissions = (user.permissions || '').split('\n');
         let roles = await user.getRoles();
         for (let role of roles) {
           permissions.push(role.permissions);
@@ -74,7 +83,7 @@ class OAuth extends NappJSService {
           username: user.username,
           firstname: user.firstname,
           lastname: user.lastname,
-          permissions: permissions.join("\n"),
+          permissions: permissions.join('\n'),
           metadata: metadata
         };
       },
@@ -86,15 +95,15 @@ class OAuth extends NappJSService {
           Date.now() + 1000 * 3600 * 24 * 90
         );
 
-        context.create("Token", {
-          type: "access",
+        context.create('Token', {
+          type: 'access',
           token: token.accessToken,
           expiresAt: new Date(Date.now() + token.accessTokenExpiresAt * 1000)
         });
 
         if (token.refreshToken) {
-          context.create("Token", {
-            type: "refresh",
+          context.create('Token', {
+            type: 'refresh',
             token: token.refreshToken,
             expiresAt: new Date(Date.now() + token.refreshTokenExpiresAt * 1000)
           });
@@ -110,8 +119,8 @@ class OAuth extends NappJSService {
       getUserFromClient: async client => {
         const context = database.createContext();
 
-        let user = await context.getObject("User", {
-          where: { "SELF.clients.id": client.id }
+        let user = await context.getObject('User', {
+          where: { 'SELF.clients.id': client.id }
         });
 
         let values = user.getValues();
@@ -127,12 +136,8 @@ class OAuth extends NappJSService {
 
     app.use(bodyParser.urlencoded({ extended: false }));
 
-    app.post("/auth", oauth.authorize());
-    app.post("/auth/token", oauth.token());
-
-    // app.use(oauth.authenticate(), (req, res, next) => {
-    //   console.log(res.locals.oauth);
-    // });
+    app.post('/auth', oauth.authorize());
+    app.post('/auth/token', oauth.token());
   }
 }
 
