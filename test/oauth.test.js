@@ -2,7 +2,7 @@ const assert = require('assert');
 const supertest = require('supertest');
 const NewNappJS = require('nappjs').NewNappJS;
 
-describe.only('oauth', () => {
+describe('oauth', () => {
   const nappjs = NewNappJS({});
   let test = null;
 
